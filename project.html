@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Clicker Game</title>
+  <style>
+    body {
+      background-image: url('https://wallpapers.com/images/hd/super-mario-background-vbep44x7ca67u2vn.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Mario clicker game</h1>
+  <h2>Help Mario become a better version</h2>
+  <img src="https://png.pngitem.com/pimgs/s/231-2315432_super-mario-bros-mario-super-mario-bros-1985.png">
+  <h3 id="won">To win you need 200 or more points! If you have negative points you lose.</h3>
+  <div class="row">
+    <button id="restart"> Restart</button>
+    <button id="score">Add Score</button>
+    <p></p>
+  </div>
+  <p id="shopLabel">Shop Buy some Upgrades!</p>
+  <div class="row">
+    <button id="upgrade1">-10 for Double points (1 time use)</button>
+    <button id="upgrade2">-30 for Quadriple point (1 time use)</button>
+  </div>
+</div>
+<script>
+  let score = 0;
+  const restart = document.getElementById('restart')
+  const picture = document.querySelector('img');
+  const scoreButton = document.getElementById('score');
+  const full = document.querySelector('p');
+  const upgrade1 = document.getElementById('upgrade1');
+  const upgrade2 = document.getElementById('upgrade2');
+  const shopLabel = document.getElementById('shopLabel');
+  const won = document.getElementById('won')
+  let clickValue = 1;
+
+  scoreButton.addEventListener('click', function(e){
+    score+=clickValue;
+    full.textContent = 'Score = ' + score;
+
+    if (score>=50) {
+      picture.src = 'https://blog.signalnoise.com/wp-content/uploads/2012/08/i_mario4.jpg'
+    }
+    if (score>=100){
+      picture.src = 'https://blog.signalnoise.com/wp-content/uploads/2012/08/i_mario7.jpg'
+    }
+    if (score>=150){
+      picture.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMILawXTGMa17A9djK3U1SS3SwVaYzNtmDQDHeAena81VLU5Lqymh3Q4UnHxFiFuTF_mM&usqp=CAU'
+    }
+    if (score>=200){
+      picture.src = 'https://dx5683gi1tv0w.cloudfront.net/dtrjyhj9q/image/upload/w_1080,h_1080,c_pad,b_auto/s3/img0be16e8d8'
+      upgrade1.hidden = true;
+      upgrade2.hidden = true;
+      scoreButton.hidden = true;
+      shopLabel.hidden = true;
+      won.hidden = true;
+    }
+    checkIfLost();
+
+  });
+
+  upgrade1.addEventListener('click', function (e){
+    clickValue = 2;
+    score -= 10;
+    full.textContent = 'Score = ' + score;
+    checkIfLost();
+    upgrade1.disabled = true;
+  });
+
+  upgrade2.addEventListener('click', function (e){
+    clickValue = 4;
+    score -=30;
+    full.textContent = 'Score = ' + score;
+    checkIfLost();
+    upgrade2.disabled = true;
+  });
+
+  restart.addEventListener('click', function (e){
+    upgrade1.hidden = false;
+    upgrade2.hidden = false;
+    scoreButton.hidden = false;
+    full.hidden = false;
+    shopLabel.hidden = false;
+    won.hidden = false;
+    upgrade1.disabled = false;
+    upgrade2.disabled = false;
+    picture.src = 'https://png.pngitem.com/pimgs/s/231-2315432_super-mario-bros-mario-super-mario-bros-1985.png'
+    clickValue = 1;
+    score = 0;
+    full.textContent = 'Score = ' + score;
+  });
+  function checkIfLost(){
+    if (score<=-1){
+      picture.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRChs5wSgeqdoyLyxi9haHzSkM68HElBb1fEW1gvJ2YFg&s'
+
+      upgrade1.hidden = true;
+      upgrade2.hidden = true;
+      scoreButton.hidden = true;
+      shopLabel.hidden = true;
+    }
+  }
+</script>
+</body>
+</html>
